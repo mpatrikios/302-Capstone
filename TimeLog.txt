@@ -1,0 +1,11 @@
+Date    |    Time   |   Tasks Done
+-------------------------------------------------------------------------------------------
+9/27    |  2 hours  |  - Discussed the different ways we could display information to user
+        |           |  - Decided how which model would be best for image classification
+        |           |  - General idea of who will work on what part of the app
+        |           |  - Found research and tutorials on image processing and classification
+--------------------------------------------------------------------------------------------
+9/29    |  2 hours  |  - Set up github Repo and assigned tasks 
+        |           |  - Found dataset to train model on
+--------------------------------------------------------------------------------------------
+9/30    |  1 hour   |  - Lab
