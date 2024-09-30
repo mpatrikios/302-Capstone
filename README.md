@@ -5,6 +5,8 @@ Plan of action:
 1. Train transfer learning model on plant images
 2. Xcode will generate a swift class for our model when we import it
 3. Will need to normalize picture before we pass it to model
+4. Define API endpoints so front end and model can communicate
+5. Send information about plant to front end
 
 ** Need to define how we will connect back end to front **
 - api end points
