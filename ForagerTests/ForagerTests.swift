@@ -1,9 +1,3 @@
-//
-//  ForagerTests.swift
-//  ForagerTests
-//
-//  Created by Jakob Dallas Johnson Brown on 9/24/24.
-//
 
 import Testing
 @testable import Forager
