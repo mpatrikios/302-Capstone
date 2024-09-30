@@ -1,9 +1,4 @@
-//
-//  ForagerUITestsLaunchTests.swift
-//  ForagerUITests
-//
-//  Created by Jakob Dallas Johnson Brown on 9/24/24.
-//
+
 
 import XCTest
 
