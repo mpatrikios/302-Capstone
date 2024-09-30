@@ -1,9 +1,4 @@
-//
-//  ForagerApp.swift
-//  Forager
-//
-//  Created by Jakob Dallas Johnson Brown on 9/24/24.
-//
+
 
 import SwiftUI
 
