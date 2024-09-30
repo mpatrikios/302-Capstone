@@ -1,0 +1,59 @@
+
+Rubric for Plant Identification App Project Proposal
+
+1. Project Proposal Clarity
+   - Objective and Scope (3 pts): Clearly defined purpose of the app, target audience, and problem being solved.
+   - Tech Stack (2 pts): Comprehensive description of technologies being used (Swift, ARkit, ML model, etc.).
+   Points: 5
+
+2. Technical Feasibility
+   - Front-End Implementation (3 pts): Clear plan for iOS interface, including ARkit integration and app design.
+   - Back-End Implementation (3 pts): Clear explanation of data flow, ML integration, and cloud storage solutions.
+   Points: 6
+
+3. Machine Learning Model
+   - Model Selection (6 pts): Justification for transfer learning or YOLO V3 model, and how it will identify plants.
+   - Model Accuracy (6 pts): Plan for evaluating accuracy and handling edge cases (e.g., wrong identifications).
+   Points: 12
+
+4. Augmented Reality Integration
+   - AR Use (6 pts): How the team plans to integrate ARkit to display plant information dynamically.
+   - Backup Plan (2 pts): Contingency plan for using static images if AR becomes too challenging.
+   Points: 8
+
+5. App Usability and UX Design
+   - User Experience (4 pts): Consideration of ease of use, navigation, and accessibility for users.
+   - Interface Design (5 pts): Visual appeal, intuitiveness, and responsiveness of the app.
+   Points: 9
+
+6. Local Relevance and Plant Data
+   - Local Plant Database (5 pts): Use of a comprehensive and relevant database of plants.
+   Points: 5
+
+7. Project Challenges and Solutions
+   - Risk Assessment (5 pts): Identification of potential technical or design challenges.
+   - Problem Solving (5 pts): Proposed solutions for handling setbacks (e.g., AR complexity, model performance).
+   Points: 10
+
+8. Team Collaboration and Roles
+   - Team Roles (5 pts): Clear division of responsibilities among team members.
+   - Collaboration (5 pts): Evidence of effective communication and project management.
+   Points: 10
+
+9. Presentation and Delivery
+   - Proposal Quality (5 pts): Professionalism, clarity, and thoroughness of the written proposal.
+   - Presentation (5 pts): Quality of any presentations given (if applicable) and ability to answer questions.
+   Points: 10
+
+10. Innovation and Creativity
+    - Unique Features (5 pts): Creative or novel aspects of the app, such as AR integration or special user interactions.
+    - Future Expansion (5 pts): Consideration of how the app could be expanded or improved in future iterations.
+    Points: 10
+11. Time Log and Work Effort
+   - Time Log (10 pts): A detailed time log showing at least 4 hours of work outside lab (5 total hours with lab time), listing specific tasks completed.
+   Points: 10
+12. Repository Evidence
+   - Code Submission (5 pts): Evidence of code checked into the Git/Bitbucket repository, linked to at least one individual task or feature assigned.
+   Points: 5
+
+Total Points: 100
