@@ -63,6 +63,14 @@ struct ContentView: View {
             Color(hex: "#A59F8D") // Set the background color for the entire screen
                            .edgesIgnoringSafeArea(.all) // Ensure the color covers the entire screen
             VStack {
+                
+                Text("Forager")
+                    .font(.system(size: 40, design: .serif))
+                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+
+                                Spacer() // Pushes the content below to the bottom
+
                     
                 // Display the captured image if available, otherwise show a placeholder text
                 if let image = image {
@@ -85,6 +93,15 @@ struct ContentView: View {
                             .scaledToFit()
                             .frame(width: 200, height: 200)
                             .clipShape(RoundedRectangle(cornerRadius: 25)) // Circular shape
+                        Button(action: {
+                                                    showCamera = true // Show the camera when the button is tapped
+                                                }) {
+                                                    Text("Take Another")
+                                                        .foregroundColor(.white)
+                                                        .padding()
+                                                        .background(Color(hex: "#808080"))
+                                                        .cornerRadius(10)
+                                                }
                     } else {
                         Image(systemName: "camera.fill") // Camera icon
                             .font(.system(size: 50)) // Adjust icon size
