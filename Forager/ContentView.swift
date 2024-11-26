@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftCSV
 import UIKit
 
 extension Color {
@@ -10,6 +11,12 @@ extension Color {
         let b = Double(rgbValue! & 0x0000FF) / 255
         self.init(red: r, green: g, blue: b)
     }
+}
+
+struct PlantInfo: Edible {
+    let id = UUID() //unique id for struct to identify 
+    let classNumber: Int
+    let description: String
 }
 
 struct LoadingCircleView: View {
@@ -28,6 +35,23 @@ struct LoadingCircleView: View {
         }
         .padding()
     }
+}
+
+//return plant info
+func loadCSV() -> PlantInfo? {
+    if let path = Bundle.main.path(forResource: "plants", ofType: "csv") {
+        do {
+            let csv = try CSV(url: URL(fileURLWithPath: path))
+            if let row = csv.namedRows.first {
+                if let classNumberString = row["classNumber"], let classNumber = Int(classNumberString), let description = row["description"] {
+                    return PlantInfo(classNumber: classNumber, description: description)
+                }
+            }
+        } catch {
+            print("Error loading CSV: \(error)")
+        }
+    }
+    return nil
 }
 
 //LOADING CIRCLE
