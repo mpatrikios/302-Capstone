@@ -141,10 +141,12 @@ struct ContentView: View {
         
         // Process the prediction result
         let plantName = prediction.target //model returns the plant name
-        if let description = plantData[plantName] {
-            classificationLabel = "\(plantName): \(description)"
+        
+        let modPlantName = plantName.replacingOccurrences(of: "_", with: " ")
+        if let description = plantData[modPlantName] {
+            classificationLabel = "\(modPlantName): \(description)"
         } else {
-            classificationLabel = "No plant information found for \(plantName)"
+            classificationLabel = "No plant information found for \(modPlantName)"
         }
         isClassifying = false
     }
