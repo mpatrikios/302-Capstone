@@ -1,0 +1,189 @@
+import SwiftUI
+import UIKit
+import CoreML
+import Vision
+
+extension Color {
+    init(hex: String) {
+        let hex = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+        let rgbValue = UInt32(hex, radix: 16)
+        let r = Double((rgbValue! & 0xFF0000) >> 16) / 255
+        let g = Double((rgbValue! & 0x00FF00) >> 8) / 255
+        let b = Double(rgbValue! & 0x0000FF) / 255
+        self.init(red: r, green: g, blue: b)
+    }
+}
+
+struct LoadingCircleView: View {
+    @State private var isLoading = false
+    
+    var body: some View {
+        ZStack {
+            Image("APPICON")
+                .resizable()
+                .frame(width: 400, height: 400)
+                .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
+                .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false), value: self.isLoading)
+                .onAppear() {
+                    self.isLoading = true
+                }
+        }
+        .padding()
+    }
+}
+
+struct ContentView: View {
+    @State private var showCamera = false
+    @State private var image: UIImage?
+    @State private var classificationLabel: String = ""
+    @State private var isClassifying: Bool = false
+    @State private var classificationError: String?
+    
+    private func classifyImage(_ image: UIImage) {
+        isClassifying = true
+        classificationError = nil
+        
+        guard let model = try? Forager(configuration: MLModelConfiguration()),
+              let vnModel = try? VNCoreMLModel(for: model.model) else {
+            classificationError = "Failed to load ML model"
+            isClassifying = false
+            return
+        }
+        
+        let request = VNCoreMLRequest(model: vnModel) { request, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    classificationError = error.localizedDescription
+                    isClassifying = false
+                }
+                return
+            }
+            
+            guard let results = request.results as? [VNClassificationObservation],
+                  let topResult = results.first else {
+                DispatchQueue.main.async {
+                    classificationError = "No classification results"
+                    isClassifying = false
+                }
+                return
+            }
+            
+            // Get top 3 results with confidence > 20%
+            let topResults = results.prefix(3).filter { $0.confidence > 0.2 }
+            
+            DispatchQueue.main.async {
+                if topResults.isEmpty {
+                    classificationLabel = "Unable to identify plant with confidence"
+                } else {
+                    // Format results
+                    classificationLabel = topResults.map { result in
+                        "\(result.identifier): \(Int(result.confidence * 100))%"
+                    }.joined(separator: "\n")
+                }
+                isClassifying = false
+            }
+        }
+        
+        request.imageCropAndScaleOption = .centerCrop
+        
+        guard let ciImage = CIImage(image: image) else {
+            classificationError = "Failed to process image"
+            isClassifying = false
+            return
+        }
+        
+        let handler = VNImageRequestHandler(ciImage: ciImage)
+        do {
+            try handler.perform([request])
+        } catch {
+            DispatchQueue.main.async {
+                classificationError = "Failed to perform classification: \(error.localizedDescription)"
+                isClassifying = false
+            }
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            Color(hex: "#A59F8D")
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                Text("Forager")
+                    .font(.system(size: 40, design: .serif))
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+
+                if let image = image {
+                    Spacer()
+                    if isClassifying {
+                        LoadingCircleView()
+                    } else if let error = classificationError {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .padding()
+                    } else {
+                        Text(classificationLabel)
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                    Spacer()
+                } else {
+                    Spacer()
+                    Text("Snap a pic of your plant!")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                }
+                
+                Button(action: {
+                    showCamera = true
+                }) {
+                    if let image = image {
+                        VStack {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                            
+                            Button(action: {
+                                showCamera = true
+                            }) {
+                                Text("Take Another")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color(hex: "#808080"))
+                                    .cornerRadius(10)
+                            }
+                        }
+                    } else {
+                        Image(systemName: "camera.fill")
+                            .font(.system(size: 50))
+                            .foregroundColor(.white)
+                            .padding(100)
+                            .background(Color.gray)
+                            .cornerRadius(10)
+                            .padding()
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                    }
+                }
+                .sheet(isPresented: $showCamera) {
+                    CameraView(image: $image)
+                        .onDisappear {
+                            if let capturedImage = image {
+                                classifyImage(capturedImage)
+                            }
+                        }
+                }
+            }
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
