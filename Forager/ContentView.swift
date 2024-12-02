@@ -90,7 +90,7 @@ struct ContentView: View {
         let height = Int(image.size.height)
         var pixelBuffer: CVPixelBuffer?
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
-                     kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+             kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
         CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
         
         guard let buffer = pixelBuffer else { return nil }
@@ -145,10 +145,14 @@ struct ContentView: View {
         let modPlantName = plantName.replacingOccurrences(of: "_", with: " ")
         if let description = plantData[modPlantName] {
             classificationLabel = "\(modPlantName): \(description)"
+            
         } else {
-            classificationLabel = "No plant information found for \(modPlantName)"
+            classificationLabel = "No plant information found for this plant."
         }
         isClassifying = false
+        
+        Text("*Eat at your own discretion*")
+            .font(.system(size: 10)) // Adjust the size as needed
     }
 
     var body: some View {
@@ -176,6 +180,10 @@ struct ContentView: View {
                             .font(.headline)
                             .multilineTextAlignment(.center)
                             .padding()
+                        Text("Eat at your own discretion")
+                                            .font(.system(size: 12)) // Adjust the size as needed
+                                            .foregroundColor(.red)
+                                            .padding()
                     }
                     Spacer()
                 } else {
