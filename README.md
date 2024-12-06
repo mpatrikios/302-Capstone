@@ -94,8 +94,19 @@ Forager is an iOS application designed to identify plants using photos. It lever
 - Implement a confidence threshold for predictions to improve identification accuracy.
 - Enhance the CoreML model with additional training data for better predictions.
 
-Image classification checklist:
-https://www.kaggle.com/competitions/mayo-clinic-strip-ai/discussion/335726
-https://www.kaggle.com/code/dataraj/fastai-tutorial-for-image-classification#Importing-required-fastai-modules-and-packages
+## Time Log
+
+| **Date**           | **Activity**                                        | **Members Present**         | **Total Hours** |
+|---------------------|----------------------------------------------------|-----------------------------|------------------|
+| September 27-29     | Met multiple times to discuss project ideas.       | Anthony, Wyatt, Dylan, Mia, Jake | 2 hours          |
+| October 28          | Met after class to break up tasks.                 | Anthony, Wyatt, Dylan, Mia, Jake | 1 hour           |
+| November 13         | Made a group presentation and discussed final tasks. | Anthony, Wyatt, Dylan, Mia, Jake | 2 hours          |
+| **Total Hours**     |                                                    |                             | **5 hours**      |
+
+---
+
+### Disclaimer
+The total hours listed reflect the group meeting times and do not represent the individual time commitment or effort of each group member.
+
 
 
